@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/linearlayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+
+    >
+
+    <include layout="@layout/toolbar_main"/>
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+        android:background="@android:color/white"
+
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/pushtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:text="알림 설정"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:layout_marginBottom="10dp"
+
+            />
+
+        <Switch
+            android:id="@+id/push"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:checked="true"
+            android:thumbTint="#FFFFFF"
+            android:trackTint="#009688"
+
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+    <TextView
+        android:id="@+id/intervaltext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알림 시간 간격"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+
+        />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/interrupttext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="방해 금지 시간"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+
+            />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:id="@+id/to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="~"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/black"
+            />
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+
+        />
+
+    <TextView
+        android:id="@+id/env"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="환경 실천 목표 변경"
+        android:textSize="30sp"
+        android:textColor="@android:color/black"
+        android:textStyle="normal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+
+        />
+
+    <TextView
+        android:id="@+id/goalnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="목표 달성 횟수 변경"
+        android:textSize="30sp"
+        android:textColor="@android:color/black"
+        android:textStyle="normal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+
+        />
+
+
+</LinearLayout>
+
