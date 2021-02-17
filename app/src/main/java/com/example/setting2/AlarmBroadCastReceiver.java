@@ -16,10 +16,10 @@ public class AlarmBroadCastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+        if("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
         Intent alarmIntentServiceIntent = new Intent(context, AlarmIntentService.class);
         context.startService(alarmIntentServiceIntent);
-        //}
+        }
     }
 
 

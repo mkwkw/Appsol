@@ -1,5 +1,5 @@
 package com.example.setting2;
-
+//메인액티비티
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -7,47 +7,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+
 import android.widget.Switch;
 import android.widget.TextView;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 
 
 import java.util.Calendar;
-
-import org.w3c.dom.Text;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    public TextView pushtext;
-    public Switch push;
-    public boolean isChecked;
-    public TextView intervaltext;
-    public String items[] = {"", "3시간", "4시간"};
-    public TextView interrupttext;
-    public String items1[] = {"", "23시", "00시"};
-    public TextView to;
-    public String items2[] = {"", "6시", "7시"};
-    public TextView env;
-    public TextView goalnum;
-    public Spinner spinner;
-    public Spinner spinner1;
-    public Spinner spinner2;
+    public static TextView pushtext;
+    public static Switch push;
+    public static boolean isChecked;
+
+    public static TextView env;
+    public static TextView goalnum;
+    public static TextView notice;
     public static AlarmManager alarmManager;
     public static PendingIntent pendingIntent;
     public static Calendar calendar;
+    public static int hour, minute;
+
 
 
     @Override
@@ -57,79 +46,72 @@ public class MainActivity extends AppCompatActivity {
 
         pushtext = findViewById(R.id.pushtext);
         push = findViewById(R.id.push);
-        intervaltext = findViewById(R.id.intervaltext);
-        interrupttext = findViewById(R.id.interrupttext);
-        to = findViewById(R.id.to);
+        notice = findViewById(R.id.notice);
         env = findViewById(R.id.env);
         goalnum = findViewById(R.id.goalnum);
 
         //스위치 작동 관련
         push.setOnCheckedChangeListener(new pushListener());
-        createNotificationChannel();
-        alarmBroadcastReceiver();
+//        createNotificationChannel();
+//        alarmBroadcastReceiver();
 
-        //스피너 작동 관련
-        spinner = findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        //환경 목표 횟수 변화 등 메뉴 클릭 시 화면 전환
+        env.setOnClickListener(new View.OnClickListener(){
+
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onClick(View v) {
+                //Intent intent = new Intent(getApplicationContext(), 해당 화면 클래스이름);
+                //startActivityForResult(intent, );
             }
+        });
+        goalnum.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onClick(View v) {
+                
             }
         });
 
-        spinner1 = findViewById(R.id.spinner1);
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items1);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(adapter1);
-        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinner2 = findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items2);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(adapter2);
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     public void alarmBroadcastReceiver(){
-            Intent alarmBroadcastReceiverIntent = new Intent(this, AlarmBroadCastReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(this, 0, alarmBroadcastReceiverIntent, 0);
+        Intent alarmBroadcastReceiverIntent = new Intent(this, AlarmBroadCastReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this,0,alarmBroadcastReceiverIntent,0);
 
-            alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//
+//        calendar = Calendar.getInstance();
+//
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//
+//
+//        calendar.set(Calendar.HOUR_OF_DAY, 14);
+//
+//
+//        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
-            calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis()); //지금 시간으로 기준 설정?
-            calendar.add(Calendar.MINUTE, 1);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            hour = 10;
+            minute = 0;
+        }
 
-            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),20*1000, pendingIntent);
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+
+        Date today = new Date();
+        long intervalDay = 6*60*60*1000; //6시간
+
+        long selectTime = calendar.getTimeInMillis();
+        long currentTime = System.currentTimeMillis();
+
+        if(currentTime>selectTime)
+            selectTime+=intervalDay;
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, selectTime, intervalDay,pendingIntent);
 
     }
 
@@ -143,7 +125,16 @@ public class MainActivity extends AppCompatActivity {
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(notificationChannel);
+
+
         }
+    }
+
+    public void unregist(){ //알림설정 해제
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent alarmBroadcastReceiverIntent = new Intent(this, AlarmBroadCastReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this,0,alarmBroadcastReceiverIntent,0);
+        alarmManager.cancel(pendingIntent);
     }
 
     class pushListener implements CompoundButton.OnCheckedChangeListener {
@@ -153,33 +144,33 @@ public class MainActivity extends AppCompatActivity {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             isChecked = push.isChecked();
 
-            if (!isChecked) {
+            if (!isChecked) { //off 체크
                 String disabledcolor = "#AEAEAE";
-                alarmManager.cancel(pendingIntent);
+                unregist();
+                //alarmManager.cancel(pendingIntent);
                 pushtext.setTextColor(Color.parseColor(disabledcolor));
-                intervaltext.setTextColor(Color.parseColor(disabledcolor));
-                interrupttext.setTextColor(Color.parseColor(disabledcolor));
-                to.setTextColor(Color.parseColor(disabledcolor));
-                spinner.setEnabled(false);
-                spinner1.setEnabled(false);
-                spinner2.setEnabled(false);
-                spinner.setSelection(0);
-                spinner1.setSelection(0);
-                spinner2.setSelection(0);
+                notice.setTextColor(Color.parseColor(disabledcolor));
 
-            } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent); // Remember to change the time to a new time in millis.
+
+            }
+            else { //on 체크
+                createNotificationChannel();
+                if(calendar.HOUR_OF_DAY==4) //새벽 4시에는 알림 끄기
+                    alarmManager.cancel(pendingIntent);
+                else
+                    alarmBroadcastReceiver();
+
+                //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_HALF_DAY, pendingIntent); // Remember to change the time to a new time in millis.
                 String enabledcolor = "#000000";
+                String darkred = "#FFCC0000";
                 pushtext.setTextColor(Color.parseColor(enabledcolor));
-                intervaltext.setTextColor(Color.parseColor(enabledcolor));
-                interrupttext.setTextColor(Color.parseColor(enabledcolor));
-                to.setTextColor(Color.parseColor(enabledcolor));
-                spinner.setEnabled(true);
-                spinner1.setEnabled(true);
-                spinner2.setEnabled(true);
+                notice.setTextColor(Color.parseColor(darkred));
+
 
             }
 
         }
     }
+
+
 }
