@@ -155,9 +155,9 @@ public class MainActivity extends AppCompatActivity {
             }
             else { //on 체크
                 createNotificationChannel();
-                if(calendar.HOUR_OF_DAY==4) //새벽 4시에는 알림 끄기
-                    alarmManager.cancel(pendingIntent);
-                else
+//                if(calendar.HOUR_OF_DAY==4) //새벽 4시에는 알림 끄기
+//                    alarmManager.cancel(pendingIntent);
+//                else
                     alarmBroadcastReceiver();
 
                 //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_HALF_DAY, pendingIntent); // Remember to change the time to a new time in millis.
